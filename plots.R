@@ -89,7 +89,8 @@ chr15_plot
 library(patchwork)
 
 plots <- chr15_plot + rho_length_plot
-ggsave('Desktop/Research/2018-montpellier-poster/combined_fig_1_labs.eps', plot = plots, width = par('din')[1] * 2, height = par('din')[1])
+ggsave('Desktop/Research/2018-montpellier-poster/combined_fig_1_labs.eps', 
+       plot = plots, width = par('din')[1] * 2, height = par('din')[1])
 
 # correlates plot
 
@@ -161,20 +162,20 @@ rho_div_plot <- ggplot(full, aes(x = log10(rho), y = diversity)) +
   ylab(expression(paste('Nucleotide diversity (', theta[pi], ')'))) +
   coord_cartesian(x = c(-4.5, -1)) +
   scale_x_continuous(breaks = c(-4:-1), labels = c('0.0001', 10^-3, 10^-2, 10^-1)) +
-#  annotate('text', x = -3.7, y = 0.043, size = 6, 
-#           label = 'rho == 0.609',
-#           parse = TRUE) +
-#  annotate('text', x = -3.7, y = 0.04, size = 6,
-#           label = 'italic(p) < 2.2 %*% 10^-16', parse = TRUE) + # plotmath
-#  labs(tag = 'A')
+  annotate('text', x = -3.7, y = 0.043, size = 6, 
+           label = 'rho == 0.609',
+           parse = TRUE) +
+  annotate('text', x = -3.7, y = 0.04, size = 6,
+           label = 'italic(p) < 2.2 %*% 10^-16', parse = TRUE) + # plotmath
+  labs(tag = 'A')
   NULL
 
 rho_div_plot
 
 ggsave('Desktop/Figure_3.eps', rho_div_plot, width = par('din')[1], height = par('din')[1])
 
-# ggsave('Desktop/Research/2018-montpellier-poster/rho_div.eps', plot = rho_div_plot, width = par('din')[1], height = par('din')[1])
-
+ggsave('Desktop/Research/2018-montpellier-poster/rho_div.eps', plot = rho_div_plot, 
+       width = par('din')[1], height = par('din')[1])
 
 ppcor::pcor.test(full$rho, full$diversity, full$functional_density, method = 'spearman')
 
@@ -208,7 +209,8 @@ library(patchwork)
 div_plots <- rho_div_plot + r_div_plot
 div_plots
 
-ggsave('Desktop/Research/2018-montpellier-poster/combined_fig_3_labs.eps', plot = div_plots, width = par('din')[1] * 2, height = par('din')[1])
+ggsave('Desktop/Research/2018-montpellier-poster/combined_fig_3_labs.eps', plot = div_plots, 
+       width = par('din')[1] * 2, height = par('din')[1])
 
 ppcor::pcor.test(full$map_rho, full$diversity, full$functional_density, method = 'spearman')
 
@@ -266,9 +268,6 @@ rho_r <- full %>%
         panel.background = element_blank()) +
   scale_x_continuous(breaks = seq(-6, -2, 2), # ugh
                      labels = c(expression(10^-6), expression(10^-4), expression(10^-2))) +
-  #scale_y_continuous(breaks = c(-1, 0, 1, 2), labels = c(expression(10^-1), 1, 10, 100)) +
-  #scale_x_log10(breaks = trans_breaks("log10", function(x) 10^x),
-  #              labels = trans_format("log10", math_format(10^.x))) +
   scale_y_log10(breaks = trans_breaks("log10", function(x) 10^x),
                 labels = trans_format("log10", math_format(10^.x))) +
   xlab(expression(paste('log(', rho, 'LD)'))) +
@@ -285,9 +284,6 @@ rho_r
 
 cor.test(full$rho, full$map_rho, method = 'spearman')
 
-
-
-
 lm(rho ~ map_rho, data = full) %>% summary()
 # R^2 = 0.003, p = 0.06
 
@@ -298,16 +294,6 @@ cor.test(full$diversity, full$functional_density, method = 'spearman')
 
 fig_4 <- div_density + rho_r
 fig_4
-ggsave('Desktop/Research/2018-montpellier-poster/combined_fig_4_labs.eps', plot = fig_4, width = par('din')[1] * 2, height = par('din')[1])
 
-
-
-
-
-
-
-
-
-
-
-
+ggsave('Desktop/Research/2018-montpellier-poster/combined_fig_4_labs.eps', plot = fig_4, 
+       width = par('din')[1] * 2, height = par('din')[1])
